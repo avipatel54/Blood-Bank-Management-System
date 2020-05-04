@@ -10,13 +10,9 @@ public interface DonorService {
 
 public List<Donor> findAll();
 	
-	
+	public Donor findById(int theId);
 	
 	public void save(Donor theDonor);
 	
 	public void deleteById(int id);
-
-
-
-	public Donor findById(int theId);
 }

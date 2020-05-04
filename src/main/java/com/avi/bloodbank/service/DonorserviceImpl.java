@@ -1,15 +1,12 @@
 package com.avi.bloodbank.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.avi.bloodbank.dao.DonorRepository;
 import com.avi.bloodbank.entity.Donor;
 
-@Service
 public class DonorserviceImpl implements DonorService {
 	
 	private DonorRepository donorRepository;
@@ -25,33 +22,16 @@ public class DonorserviceImpl implements DonorService {
 		return (List<Donor>) donorRepository.findAll();
 	}
 
-	@Override
-	public Donor findById(int theId) {
-		
-		Optional<Donor> result =donorRepository.findById(theId);
-		
-		Donor theEmployee = null;
-		
-		if (result.isPresent()) {
-			theEmployee = result.get();
-		}
-		else {
-			// we didn't find the employee
-			throw new RuntimeException("Did not find employee id - " + theId);
-		}
-		
-		return theEmployee;
-	}
+	
 
-	@Override
 	public void save(Donor theDonor) {
-		donorRepository.save(theDonor);
+		
 
 	}
 
 	@Override
-	public void deleteById(int theId) {
-		donorRepository.deleteById(theId);
+	public void deleteById(int id) {
+		
 	}
 
 }
