@@ -1,7 +1,6 @@
 package com.avi.bloodbank.dao;
 
 import org.springframework.data.repository.CrudRepository;
-
 import org.springframework.stereotype.Repository;
 import com.avi.bloodbank.entity.Donor;
 
