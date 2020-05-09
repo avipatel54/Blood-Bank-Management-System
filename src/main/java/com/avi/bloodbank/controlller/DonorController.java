@@ -21,11 +21,30 @@ public class DonorController {
 	public DonorController(DonorService theDonorService) {
 		donorService=theDonorService;
 	}
+	@GetMapping("/First")
+	public String firstPage() {
+		return "firstpage";
+	}
 
 	@GetMapping("/list")
 	public String donorList(Model theModel) {
 		List<Donor> theDonor=donorService.findAll();
 		theModel.addAttribute("donor",theDonor);
 		return "compact-table";
+	}
+	
+	@GetMapping("/SignIn")
+	public String signIn() {
+		return "login";
+	}
+	
+	@GetMapping("/SignUp")
+	public String signUp() {
+		return "signup";
+	}
+	
+	@GetMapping("/Forget")
+	public String forget() {
+		return "forget";
 	}
 }
