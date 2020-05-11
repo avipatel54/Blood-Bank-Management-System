@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.avi.bloodbank.dao.DonorRepository;
 import com.avi.bloodbank.entity.Donor;
+import com.avi.bloodbank.entity.DonorLogin;
 
 @Service
 public class DonorserviceImpl implements DonorService {
@@ -54,4 +55,17 @@ public class DonorserviceImpl implements DonorService {
 		donorRepository.deleteById(theId);
 	}
 
+	
+
+	@Override
+	public String login(DonorLogin theDonorLogin) {
+		Donor donor=donorRepository.findByEmail(theDonorLogin.getUsername());
+		
+		if(donor==null){
+			
+			return "invalid";
+		}
+		
+		return "valid";
+	}
 }

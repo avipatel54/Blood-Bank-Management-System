@@ -7,5 +7,5 @@ import com.avi.bloodbank.entity.Donor;
 
 @Repository
 public interface DonorRepository extends CrudRepository<Donor,Integer> {
-
+	public Donor findByEmail(String email);
 }

@@ -3,6 +3,7 @@ package com.avi.bloodbank.service;
 import java.util.List;
 
 import com.avi.bloodbank.entity.Donor;
+import com.avi.bloodbank.entity.DonorLogin;
 
 
 
@@ -15,4 +16,7 @@ public List<Donor> findAll();
 	public void save(Donor theDonor);
 	
 	public void deleteById(int id);
+	
+	 
+	 public String login(DonorLogin theDonorLogin);
 }
