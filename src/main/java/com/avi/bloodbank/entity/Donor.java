@@ -27,6 +27,9 @@ public class Donor {
 	@Column(name="contact")
 	private String contact;
 	
+	@Column(name="blood_group")
+	private String blood_group;
+	
 	@Column(name="email")
 	private String email;
 	
@@ -93,12 +96,22 @@ public class Donor {
 		this.pwd = pwd;
 	}
 
-	public Donor(int id, String name, String city, String country, String contact, String email, String pwd) {
+	public String getBlood_group() {
+		return blood_group;
+	}
+
+	public void setBlood_group(String blood_group) {
+		this.blood_group = blood_group;
+	}
+
+	public Donor(int id, String name, String city, String country, String contact, String blood_group, String email,
+			String pwd) {
 		this.id = id;
 		this.name = name;
 		this.city = city;
 		this.country = country;
 		this.contact = contact;
+		this.blood_group = blood_group;
 		this.email = email;
 		this.pwd = pwd;
 	}
@@ -106,7 +119,9 @@ public class Donor {
 	@Override
 	public String toString() {
 		return "Donor [id=" + id + ", name=" + name + ", city=" + city + ", country=" + country + ", contact=" + contact
-				+ ", email=" + email + ", pwd=" + pwd + "]";
+				+ ", blood_group=" + blood_group + ", email=" + email + ", pwd=" + pwd + "]";
 	}
+
+	
 	
 }

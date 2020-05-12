@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+
+<body>
+	<h3>Your Directory</h3>
+	<hr>
+	
+    <div class="container my-2">
+    <div class="card">
+    <div class="card-body">
+           
+            <div class="col-md-10">
+                
+                
+                
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>Contact</th>
+                                <th>Blood group</th>
+                                <th>Email</th>
+                                <th>password</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="donors : ${donor}">
+                                <td th:text="${donors.name}"></td>
+                                <td th:text="${donors.city}"></td>
+                                <td th:text="${donors.country}"></td>
+                                <td th:text="${donors.contact}"></td>
+                                <td th:text="${donors.blood_group}"></td>
+                                <td th:text="${donors.email}"></td>
+                                <td th:text="${donors.pwd}"></td>
+                                <td>
+                                    <a th:href="@{/donor/edit/{id}(id=${donors.id})}" class="btn btn-primary">
+                                        <i class="fas fa-user-edit ml-2"></i></a></td>
+                                <td>
+                                    <a th:href="@{/donor/delete/{id}(id=${donors.id})}" class="btn btn-primary">
+                                        <i class="fas fa-user-times ml-2"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+

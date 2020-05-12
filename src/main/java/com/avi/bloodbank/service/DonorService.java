@@ -3,6 +3,7 @@ package com.avi.bloodbank.service;
 import java.util.List;
 
 import com.avi.bloodbank.entity.Donor;
+import com.avi.bloodbank.entity.DonorForgot;
 import com.avi.bloodbank.entity.DonorLogin;
 
 
@@ -19,4 +20,10 @@ public List<Donor> findAll();
 	
 	 
 	 public String login(DonorLogin theDonorLogin);
+
+	public List<Donor> dash(DonorLogin theDonorLogin);
+
+	String forgot(DonorForgot theDonorForgot);
+
+	String sendEmail(DonorForgot theDonorForgot);
 }
