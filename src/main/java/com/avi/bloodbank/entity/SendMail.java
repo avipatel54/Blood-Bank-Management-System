@@ -38,11 +38,7 @@ public class SendMail {
 	
         //getters and setters not mentioned for brevity
  
-	private String[] splitByComma(String toMultiple) {
-		String[] toSplit = toMultiple.split(",");
-		return toSplit;
-	}
-
+	
 	public String getTo() {
 		return to;
 	}
