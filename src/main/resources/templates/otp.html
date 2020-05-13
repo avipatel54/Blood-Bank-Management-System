@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://ww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forget</title>
+    <link rel="stylesheet" type="text/css" href="/assets2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets2/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets2/css/iofrm-style.css">
+    <link rel="stylesheet" type="text/css" href="/assets2/css/iofrm-theme1.css">
+</head>
+<body>
+    <div class="form-body">
+        <div class="website-logo">
+            <a href="index.html">
+                
+            </a>
+        </div>
+        <div class="row">
+            <div class="img-holder">
+                <div class="bg"></div>
+                <div class="info-holder">
+
+                </div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Verfiy Your Email Id</h3>
+                        
+                        <form action="#" th:action="@{/donor/otpverify}" th:object="${otp}" method="POST">
+                            <input class="form-control" type="text" name="otp" placeholder="Enter OTP" required>
+                            <div class="form-button full-width">
+                                <button id="submit" type="submit" class="ibtn">Verify OTP</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="/assets2/js/jquery.min.js"></script>
+<script src="/assets2/js/popper.min.js"></script>
+<script src="/assets2/js/bootstrap.min.js"></script>
+<script src="/assets2/js/main.js"></script>
+</body>
+</html>
