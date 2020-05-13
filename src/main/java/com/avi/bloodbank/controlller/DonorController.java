@@ -2,15 +2,19 @@ package com.avi.bloodbank.controlller;
 
 import java.util.List;
 
-
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.avi.bloodbank.entity.Donor;
 import com.avi.bloodbank.entity.DonorForgot;
@@ -23,6 +27,10 @@ public class DonorController {
 
 	@Autowired
 	private DonorService donorService;
+	
+	 @Autowired
+		private JavaMailSender sender;
+
 
 	public DonorController(DonorService theDonorService) {
 		donorService=theDonorService;
@@ -39,7 +47,7 @@ public class DonorController {
 		return "compact-table";
 	}
 	
-	@GetMapping("/SignIn")
+	@RequestMapping("/SignIn")
 	public String signIn() {
 		
 		return "login";
@@ -74,7 +82,7 @@ public class DonorController {
 			
 			return "dashboard";
 		}
-		return "login";
+		return "redirect:/donor/SignIn";
 	}
 	
 	@RequestMapping("/delete/{id}")
@@ -89,18 +97,31 @@ public class DonorController {
 		
 		 Donor theDonor=donorService.findById(id);
 		 theModel.addAttribute("donor", theDonor);
-		 return "signup";
+		 return "redirect:/donor/SignUp";
 	 }
 	 
 	 @RequestMapping("/forgot")
+	 
 	 public String donorForgot(@ModelAttribute("forgotcheck") DonorForgot theDonorForgot) {
 		 if(donorService.forgot(theDonorForgot)=="valid") {
-			 System.out.println("1");
+			 
 			 String donor1=donorService.sendEmail(theDonorForgot);
-			 System.out.println(donor1);
-			 return "redirect:/donor/First";
+			 MimeMessage message = sender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message);
+
+				try {
+					helper.setTo(theDonorForgot.getEmail());
+					helper.setText("your Password is :"+donor1);
+					helper.setSubject("Mail From Spring Boot");
+				} catch (MessagingException e) {
+					e.printStackTrace();
+					return "Error while sending mail ..";
+				}
+				sender.send(message);
+				return "redirect:/donor/First";
+			 
 		 }
-		 return "forget";
+		 return "redirect:/donor/Forget";
 	 }
 	
 }
