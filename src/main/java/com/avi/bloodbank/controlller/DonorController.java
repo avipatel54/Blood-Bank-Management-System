@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.avi.bloodbank.entity.Donor;
 import com.avi.bloodbank.entity.DonorForgot;
 import com.avi.bloodbank.entity.DonorLogin;
+import com.avi.bloodbank.entity.DonorOtp;
+import com.avi.bloodbank.entity.DonorTemp;
 import com.avi.bloodbank.service.DonorService;
 
 @Controller
@@ -28,10 +30,11 @@ public class DonorController {
 	@Autowired
 	private DonorService donorService;
 	
-	 @Autowired
-		private JavaMailSender sender;
+	@Autowired
+	private JavaMailSender sender;
 
-
+	DonorTemp thedonor;
+	
 	public DonorController(DonorService theDonorService) {
 		donorService=theDonorService;
 	}
@@ -94,10 +97,9 @@ public class DonorController {
 	
 	 @RequestMapping("/edit/{id}")
 	 public String editEmployeeById(Model theModel, @PathVariable("id") int id){	
-		
 		 Donor theDonor=donorService.findById(id);
 		 theModel.addAttribute("donor", theDonor);
-		 return "redirect:/donor/SignUp";
+		 return "edit";
 	 }
 	 
 	 @RequestMapping("/forgot")
@@ -107,7 +109,7 @@ public class DonorController {
 			 
 			 String donor1=donorService.sendEmail(theDonorForgot);
 			 MimeMessage message = sender.createMimeMessage();
-				MimeMessageHelper helper = new MimeMessageHelper(message);
+			 MimeMessageHelper helper = new MimeMessageHelper(message);
 
 				try {
 					helper.setTo(theDonorForgot.getEmail());
@@ -123,5 +125,37 @@ public class DonorController {
 		 }
 		 return "redirect:/donor/Forget";
 	 }
+	 
+	 @RequestMapping("/otp")
+	 public String otp(@ModelAttribute("donor") DonorTemp theDonorTemp) {
+		 int a=donorService.genRandom();
+		 thedonor=donorService.donorTemp(theDonorTemp);
+		 MimeMessage message = sender.createMimeMessage();
+		 MimeMessageHelper helper = new MimeMessageHelper(message);
+
+			try {
+				helper.setTo(theDonorTemp.getEmail());
+				helper.setText("your otp is " + a);
+				helper.setSubject("Mail From Spring Boot");
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				return "Error while sending mail ..";
+			}
+			sender.send(message);
+			return "otp";
+		
+	 }
+	 
+	 @RequestMapping("/otpverify") 
+	 public String otpVerify(@ModelAttribute("otp") DonorOtp theDonorOtp) {
+		
+		 if(donorService.otpVerification(theDonorOtp)=="valid"){
+			 donorService.sendData(thedonor);
+			 return "redirect:/donor/First";
+		 }
+		 return "redirect:/donor/otp";
+	 }
+	 
+	 
 	
 }
